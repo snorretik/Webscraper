@@ -5,10 +5,12 @@ import time
 import requests
 from tkinter import ttk
 from bs4 import BeautifulSoup
+import modules
 
 # Global variables:
 
-collection_labels = []
+collection_links = []
+loop = True
 
 # Setting up Main Functions:
 
@@ -24,22 +26,11 @@ helloLabel.pack()
 urlTextInput = ttk.Entry(root)
 urlTextInput.pack()
 
-def packLabels():
-    if len(collection_labels) > 0:
-        for x in range(len(collection_labels)):
-            collection_labels[x].pack()
-
 def settingLabelURL():
-    label = ttk.Label(text=f"{urlTextInput.get()}")
-    
-    try:
-        collection_labels[9].destroy()
-        del(collection_labels[9])
-        collection_labels.insert(0, label)
-    except:
-        collection_labels.insert(0, label)
+    uniqueCollectionURLs = modules.module1.getAllMainLinksFromURL(f"{urlTextInput.get()}")
 
-    packLabels() 
+    for x in range(len(uniqueCollectionURLs)):
+        root.after(200, print(uniqueCollectionURLs[x]))
 
 runButton = ttk.Button(root, text="Crawl", command=settingLabelURL, padding=(5, 5, 5, 5))
 runButton.pack()

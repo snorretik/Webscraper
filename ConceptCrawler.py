@@ -16,6 +16,7 @@ def get_links_from_url(currentURL):
         
         for link in soup.find_all('a'):
             path = link.get('href')
+            
             if path and path.startswith('/'):
                 path = urljoin(currentURL, path)
                 retrievedURLs.append(path)
